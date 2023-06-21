@@ -31,7 +31,7 @@ const useActivities = () => {
   const runPeriod = {};
   const provinces = new Set();
   const countries = new Set();
-  let years = new Set();
+  let uniqueYears = new Set();
   let thisYear = '';
 
   activities.forEach((run) => {
@@ -52,10 +52,10 @@ const useActivities = () => {
     if (province) provinces.add(province);
     if (country) countries.add(country);
     const year = run.start_date_local.slice(0, 4);
-    years.add(year);
+    uniqueYears.add(year);
   });
 
-  years = [...years].sort().reverse();
+  const years = [...uniqueYears].sort().reverse();
   if (years) [thisYear] = years; // set current year as first one of years array
 
   return {

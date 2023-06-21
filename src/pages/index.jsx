@@ -24,7 +24,7 @@ import {
 const Index = () => {
   const { siteTitle } = useSiteMetadata();
   const { activities, thisYear } = useActivities();
-  const [year, setYear] = useState(thisYear);
+  const [year, setYear] = useState('Total');
   const [runIndex, setRunIndex] = useState(-1);
   const [runs, setActivity] = useState(
     filterAndSortRuns(activities, year, filterYearRuns, sortDateFunc)
@@ -165,7 +165,7 @@ const Index = () => {
 
   return (
     <Layout>
-      <div className="mb5">
+      <div className="pl4 pr4 mb5 cf">
         <div className="fl w-30-l">
           <h1 className="f1 fw9 i">
             <a href="/">{siteTitle}</a>
