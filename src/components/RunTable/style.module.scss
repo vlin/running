@@ -26,6 +26,8 @@
 }
 
 .runRow {
+  color: $nike;
+
   td {
     padding: 0.5rem;
     border: 0;
@@ -43,7 +45,7 @@
 
 .tableContainer {
   width: 100%;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .runDate {
