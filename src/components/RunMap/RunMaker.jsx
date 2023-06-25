@@ -11,7 +11,7 @@ const RunMarker = ({ startLon, startLat, endLon, endLat }) => {
       <Marker key="maker_start" longitude={startLon} latitude={startLat}>
         <div
           style={{
-            transform: `translate(${-size / 2}px,${-size}px)`,
+            transform: 'translate(-4px, -15px) rotate(16deg)',
             maxWidth: '25px',
           }}
         >
@@ -21,7 +21,7 @@ const RunMarker = ({ startLon, startLat, endLon, endLat }) => {
       <Marker key="maker_end" longitude={endLon} latitude={endLat}>
         <div
           style={{
-            transform: `translate(${-size / 2}px,${-size}px)`,
+            transform: 'translate(-4px, -15px) rotate(16deg)',
             maxWidth: '25px',
           }}
         >
