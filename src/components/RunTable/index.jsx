@@ -43,18 +43,16 @@ const RunTable = ({
     ['Time', sortRunTimeFunc],
     ['Date', sortDateFuncClick],
   ]);
+
   const handleClick = (e) => {
     const funcName = e.target.innerHTML;
-    if (sortFuncInfo === funcName) {
-      setSortFuncInfo('');
-    } else {
-      setSortFuncInfo(funcName);
-    }
-    const f = sortFuncMap.get(e.target.innerHTML);
+    const f = sortFuncMap.get(funcName);
+
     if (runIndex !== -1) {
-      const el = document.getElementsByClassName(styles.runRow);
-      el[runIndex].style.color = MAIN_COLOR;
+      const previousRun = document.querySelector(`.${styles.runRow}:nth-child(${runIndex + 1})`);
+      previousRun && (previousRun.style.color = MAIN_COLOR);
     }
+    setSortFuncInfo(sortFuncInfo === funcName ? '' : funcName);
     setActivity(runs.sort(f));
   };
 
@@ -65,19 +63,19 @@ const RunTable = ({
           <tr>
             <th />
             {Array.from(sortFuncMap.keys()).map((k) => (
-              <th key={k} onClick={(e) => handleClick(e)}>
+              <th key={k} onClick={handleClick} style={{ cursor: 'pointer' }}>
                 {k}
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {runs.map((run) => (
+          {runs.map((run, index) => (
             <RunRow
-              runs={runs}
-              run={run}
               key={run.run_id}
+              index={index}
               locateActivity={locateActivity}
+              run={run}
               runIndex={runIndex}
               setRunIndex={setRunIndex}
             />

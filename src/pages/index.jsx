@@ -72,11 +72,19 @@ const Index = () => {
     changeByItem(title, 'Title', filterTitleRuns, false);
   };
 
-  const locateActivity = (run) => {
-    setGeoData(geoJsonForRuns([run]));
-    setTitle(titleForShow(run));
-    clearInterval(intervalId);
-    scrollToMap();
+  const locateActivity = (runDate) => {
+    let info = {}
+    info = runs
+      .filter((r) => r.start_date_local.slice(0, 10) === runDate)
+      .sort((a, b) => b.distance - a.distance)[0];
+
+    if (info) {
+      setGeoData(geoJsonForRuns([info]));
+      setTitle(titleForShow(info));
+      clearInterval(intervalId);
+      scrollToMap();
+    }
+
   };
 
   useEffect(() => {
@@ -102,65 +110,33 @@ const Index = () => {
     setIntervalId(id);
   }, [runs]);
 
-  // TODO refactor
   useEffect(() => {
     if (year !== 'Total') {
       return;
     }
 
-    let rectArr = document.querySelectorAll('rect');
-
-    if (rectArr.length !== 0) {
-      rectArr = Array.from(rectArr).slice(1);
+    let svgStat = document.getElementById('svgStat')
+    if (!svgStat) {
+      return
     }
-
-    rectArr.forEach((rect) => {
-      const rectColor = rect.getAttribute('fill');
-
-      // not run has no click event
-      if (rectColor !== '#444444') {
-        const runDate = rect.innerHTML;
-        // ingnore the error
-        const [runName] = runDate.match(/\d{4}-\d{1,2}-\d{1,2}/) || [];
-        const runLocate = runs
-          .filter((r) => r.start_date_local.slice(0, 10) === runName)
-          .sort((a, b) => b.distance - a.distance)[0];
-
-        // do not add the event next time
-        // maybe a better way?
-        if (runLocate) {
-          rect.addEventListener(
-            'click',
-            () => locateActivity(runLocate),
-            false
-          );
+    svgStat.addEventListener('click', (e) => {
+      const target = e.target;
+      if (target) {
+        const tagName = target.tagName.toLowerCase()
+        console.log(target)
+        if ((tagName === 'rect' &&
+          parseFloat(target.getAttribute('width')) === 2.6 &&
+          parseFloat(target.getAttribute('height')) === 2.6 &&
+          target.getAttribute('fill') !== '#444444'
+        ) || (
+            tagName === 'polyline'
+          )) {
+          const runDate = target.innerHTML;
+          const [runName] = runDate.match(/\d{4}-\d{1,2}-\d{1,2}/) || [];
+          locateActivity(runName)
         }
       }
-    });
-    let polylineArr = document.querySelectorAll('polyline');
-
-    if (polylineArr.length !== 0) {
-      polylineArr = Array.from(polylineArr).slice(1);
-    }
-
-    // add picked runs svg event
-    polylineArr.forEach((polyline) => {
-      // not run has no click event
-      const runDate = polyline.innerHTML;
-      // `${+thisYear + 1}` ==> 2021
-      const [runName] = runDate.match(/\d{4}-\d{1,2}-\d{1,2}/) || [
-        `${+thisYear + 1}`,
-      ];
-      const run = runs
-        .filter((r) => r.start_date_local.slice(0, 10) === runName)
-        .sort((a, b) => b.distance - a.distance)[0];
-
-      // do not add the event next time
-      // maybe a better way?
-      if (run) {
-        polyline.addEventListener('click', () => locateActivity(run), false);
-      }
-    });
+    })
   }, [year]);
 
   return (
@@ -182,8 +158,6 @@ const Index = () => {
         </div>
         <div className="fl w-100 w-70-l">
           <RunMap
-            runs={runs}
-            year={year}
             title={title}
             viewport={viewport}
             geoData={geoData}
@@ -196,7 +170,6 @@ const Index = () => {
           ) : (
             <RunTable
               runs={runs}
-              year={year}
               locateActivity={locateActivity}
               setActivity={setActivity}
               runIndex={runIndex}
