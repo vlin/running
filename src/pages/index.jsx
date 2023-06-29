@@ -42,11 +42,8 @@ const Index = () => {
   const changeByItem = (item, name, func, isChanged) => {
     scrollToMap();
     setActivity(filterAndSortRuns(activities, item, func, sortDateFunc));
-    // if the year not change, we do not need to setYear
-    if (!isChanged) {
-      setRunIndex(-1);
-      setTitle(`${item} ${name} Running Heatmap`);
-    }
+    setRunIndex(-1);
+    setTitle(`${item} ${name} Running Heatmap`);
   };
 
   const changeYear = (y) => {
@@ -123,7 +120,6 @@ const Index = () => {
       const target = e.target;
       if (target) {
         const tagName = target.tagName.toLowerCase()
-        console.log(target)
         if ((tagName === 'rect' &&
           parseFloat(target.getAttribute('width')) === 2.6 &&
           parseFloat(target.getAttribute('height')) === 2.6 &&
@@ -179,7 +175,7 @@ const Index = () => {
         </div>
       </div>
       {/* Enable Audiences in Vercel Analytics: https://vercel.com/docs/concepts/analytics/audiences/quickstart */}
-      <Analytics />
+      {/* <Analytics /> */}
     </Layout>
   );
 };

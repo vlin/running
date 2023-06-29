@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MAIN_COLOR } from 'src/utils/const';
 import { formatPace, titleForRun, formatRunTime } from 'src/utils/utils';
 import styles from './style.module.scss';
@@ -10,19 +10,14 @@ const RunRow = ({ index, locateActivity, run, runIndex, setRunIndex }) => {
   const runTime = formatRunTime(run.moving_time);
 
   const handleClick = (e) => {
-    e.target.parentElement.style.color = 'red';
-
-    if (runIndex !== -1) {
-      const previousRun = document.querySelector(`.${styles.runRow}:nth-child(${runIndex + 1})`);
-      previousRun && (previousRun.style.color = MAIN_COLOR);
-    }
+    if (runIndex === index) return;
     setRunIndex(index);
     locateActivity(run.start_date_local.slice(0, 10));
   };
 
   return (
     <tr
-      className={styles.runRow}
+      className={`${styles.runRow} ${runIndex === index ? styles.selected : ''}`}
       key={run.start_date_local}
       onClick={handleClick}
     >

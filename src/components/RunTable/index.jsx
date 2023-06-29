@@ -48,10 +48,7 @@ const RunTable = ({
     const funcName = e.target.innerHTML;
     const f = sortFuncMap.get(funcName);
 
-    if (runIndex !== -1) {
-      const previousRun = document.querySelector(`.${styles.runRow}:nth-child(${runIndex + 1})`);
-      previousRun && (previousRun.style.color = MAIN_COLOR);
-    }
+    setRunIndex(-1)
     setSortFuncInfo(sortFuncInfo === funcName ? '' : funcName);
     setActivity(runs.sort(f));
   };
