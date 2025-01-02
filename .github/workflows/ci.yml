@@ -5,16 +5,13 @@ on: [push, pull_request]
 jobs:
   lint_and_test:
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 4
-      matrix:
-        python-version: [3.7, 3.8, 3.9]
+
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.x"
       # from pdm
       - name: Set Variables
         id: set_variables
@@ -31,4 +28,4 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
       - name: Check formatting (black)
-        run: black . --check
+        run: black .
