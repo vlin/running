@@ -5262,5 +5262,19 @@
 "average_heartrate": null,
 "average_speed": 1.2813622525834554,
 "streak": 1
+},
+{
+"run_id": 422676555,
+"name": "Run from codoon",
+"distance": 502.1969,
+"moving_time": "0:07:19.264000",
+"type": "Run",
+"start_date": "2026-06-20 18:58:17",
+"start_date_local": "2026-06-20 18:58:17",
+"location_country": "\u65b0\u533a\u5927\u9053\u7eff\u9053, \u5357\u6e90\u65b0\u6751, \u6c11\u6cbb\u8857\u9053, \u9f99\u534e\u533a, \u6df1\u5733\u5e02, \u5e7f\u4e1c\u7701, 518110, \u4e2d\u56fd",
+"summary_polyline": "or`iCmk|vT?E@E?C@C@CBCBABABABABABABABA@ABABC@CBA@CBC@ABC@CBABCBA@CBABC@CBC@C@C@C@C@C?C@C?E@C?CBC@CBCBCBA@CBCBC@CBABCBABABABABCBA@CBC@ABC@CBC@E@C@CBC@CBC@CBA@CBC@C@C@C@C@C@C@CBCBA@CBABC@C@CBC@CBC@C@C@C@CBC@C@CBC@CBC@A@C@E@C@C@CBC@C@C@C@C@C@C@CBC@ABC@CBA@C@E@C@C@C@CBC@CBC@CBA@CBC@C@CBABC@CBC@C@CBC@C@CBC@C@CBC@C@CBC@C@A@CBC@ABC@CBC@CBCBC@CBC@C@CBC@A@CBCBABCBABABABC@CBA@C?AA?A@EDCDEDCDCBCDCBCBABCBCBCBCBCDCB??@????A??",
+"average_heartrate": null,
+"average_speed": 1.1432689680920813,
+"streak": 2
 }
 ]
